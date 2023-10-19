@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   backIamge: {
     width: '100%',
     position: 'absolute',
-    top: 58,
+    top: 128,
     resizeMode: 'stretch',
   },
   whiteSheet: {
@@ -95,5 +95,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 44,
     paddingVertical: 16,
+    marginTop: 252,
   }
 });
