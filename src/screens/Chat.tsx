@@ -101,7 +101,11 @@ export function Chat({ navigation }: IniciarProps) {
           scrollsToTop={false}
           onContentSizeChange={(w, h) => {
             // @ts-ignore
-            sectionListRef?.current?.scrollToLocation({itemIndex: messageList?.length , sectionIndex: sections[sections?.length]?.length, viewOffset:  -h})
+            try {
+              sectionListRef?.current?.scrollToLocation({itemIndex: messageList?.length , sectionIndex: sections[sections?.length]?.length, viewOffset:  -h})
+            } catch {
+              console.error('error ao scrollar')
+            }
           }}
           renderSectionHeader={({ section: { title } }) =>
             <View style={styles.titleContainer}>
@@ -118,7 +122,7 @@ export function Chat({ navigation }: IniciarProps) {
         <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 20 }}>
           <TextInput style={styles.input}  value={msg} onChangeText={setMsg} />
           <TouchableOpacity>
-            <Ionicons name="boat-outline" size={26} color='#ffff' onPress={sendMessage}/>
+            <Ionicons name="send" size={26} color='#ffff' onPress={sendMessage}/>
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
