@@ -1,4 +1,15 @@
 import { IMessage } from "../interfaces/IMessage";
+import * as tf from '@tensorflow/tfjs';
+import * as mobilenet from '@tensorflow-models/mobilenet';
+import { fetch, decodeJpeg, bundleResourceIO } from '@tensorflow/tfjs-react-native';
+
+// Get reference to bundled model assets 
+const modelJson = 'https://huggingface.co/pierreguillou/bert-base-cased-squad-v1.1-portuguese/blob/main/config.json'
+const modelWeights = 'https://huggingface.co/pierreguillou/bert-base-cased-squad-v1.1-portuguese/blob/main/tf_model.h5'
+
+// Use the bundleResorceIO IOHandler to load the model
+const model =  tf.loadLayersModel(
+  bundleResourceIO(modelJson, modelWeights));
 
 export const  messageListData: IMessage[] = [
     {
