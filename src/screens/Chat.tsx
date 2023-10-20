@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Dimensions, SafeAreaView, StatusBar, View, Image, Text, KeyboardAvoidingView, Platform, TouchableOpacity, StyleSheet, SectionList, FlatList } from 'react-native';
+import { Dimensions, SafeAreaView, StatusBar, View, Image, Text, KeyboardAvoidingView, Platform, TouchableOpacity, StyleSheet, SectionList } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { TextInput } from 'react-native-gesture-handler';
 const botIcon = require('../../assets/favicon.png')
@@ -18,7 +18,8 @@ interface IniciarProps {
 }
 
 export function Chat({ navigation }: IniciarProps) {
-  const flatListRef = useRef(null);
+  const sectionListRef = useRef(null);
+  const [messages, setMessages] = useState<{ title: string; data: IMessage[]; }[]>([]);
   const [messageList, setMessageList] = useState<IMessage[]>(messageListData);
   const [sections, setSections] = useState<IMessage[][]>([]);
   const [msg, setMsg] = useState("");
@@ -31,10 +32,19 @@ export function Chat({ navigation }: IniciarProps) {
     const groupedList = Object.values(groupBy(messageList, (message) => {
       return message.createdAt.toISOString().substring(0, 10);
     }));
+    var data:{ title: string; data: IMessage[]; }[] = [];
+    groupedList.map((date) => {
+      let sec =  {
+        title: format(new Date(date[0].createdAt), 'PPP', { locale: pt }),
+        data: [...date],
+      };
+      data.push(sec);
+    });
+    setMessages(data);
     setSections(groupedList);
   }, [messageList]);
   
-  function renderMsg({ item }: { item: IMessage }) {
+  function renderMsg(item: IMessage) {
     const isFromUser = item.from === 1;
     const messageTime = format(item.createdAt, 'HH:mm', { locale: pt });
   
@@ -48,6 +58,8 @@ export function Chat({ navigation }: IniciarProps) {
     );
   }
   
+  
+
   function sendMessage() {
     const dateSent = new Date();
     const messageSent = msg;
@@ -63,9 +75,9 @@ export function Chat({ navigation }: IniciarProps) {
       };
       setMessageList(prev => [...prev, formatMessage]);
       setMsg("");
-      // Scroll to the last message
+      //@ts-ignore
     }
-  };
+  }
 
 
   return (
@@ -75,25 +87,27 @@ export function Chat({ navigation }: IniciarProps) {
         <FontAwesome name='chevron-left' size={24} color="white" onPress={backScreen} />
         <Image source={botIcon} style={styles.avatar} />
         <View>
-          <Text style={styles.name}> Nome do BOt </Text>
+          <Text style={styles.name}> Roberinho </Text>
           <Text style={styles.status}>Digitando... </Text>
         </View>
       </View>
 
       <View style={styles.content}>
-        <FlatList
-          data={sections[0]}
-          ref={flatListRef}
-          keyExtractor={(item, index) => `section-${index}`}
-          renderItem={renderMsg}
-          onContentSizeChange={()=> flatListRef.current?.scrollToEnd()}
-          ListHeaderComponent={<View style={styles.titleContainer}>
-            <Text style={styles.sText}>
-              {sections[sections?.length - 1]?.length > 0
-                ? format(sections[sections.length - 1][0].createdAt, 'PPP', { locale: pt })
-                : ''}
-            </Text>
-          </View>}
+        <SectionList
+          sections={messages}
+          ref={sectionListRef}
+          keyExtractor={item => String(item.id)}
+          renderItem={({ item }) => renderMsg(item)}
+          scrollsToTop={false}
+          onContentSizeChange={(w, h) => {
+            // @ts-ignore
+            sectionListRef?.current?.scrollToLocation({itemIndex: messageList?.length , sectionIndex: sections[sections?.length]?.length, viewOffset:  -h})
+          }}
+          renderSectionHeader={({ section: { title } }) =>
+            <View style={styles.titleContainer}>
+              <Text style={styles.sText}>{title}</Text>
+            </View>}
+        
         />
       </View>
       <KeyboardAvoidingView
@@ -102,16 +116,15 @@ export function Chat({ navigation }: IniciarProps) {
         keyboardVerticalOffset={100}
         style={styles.footer}>
         <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 20 }}>
-          <TextInput style={styles.input} value={msg} onChangeText={setMsg} />
+          <TextInput style={styles.input}  value={msg} onChangeText={setMsg} />
           <TouchableOpacity>
-            <Ionicons name="boat-outline" size={26} color='#ffff' onPress={sendMessage} />
+            <Ionicons name="boat-outline" size={26} color='#ffff' onPress={sendMessage}/>
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
   )
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -192,7 +205,9 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
     borderBottomLeftRadius: 8,
-    margin: width * 0.20 - 50
+    marginTop:  width * 0.20 - 50,
+    marginBottom:  width * 0.20 - 50,
+    marginLeft:  width * 0.20 - 10,
   },
   msgTxt: {
     fontSize: 16,
