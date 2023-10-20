@@ -64,12 +64,9 @@ export function Chat({ navigation }: IniciarProps) {
       setMessageList(prev => [...prev, formatMessage]);
       setMsg("");
       // Scroll to the last message
-      flatListRef.current?.scrollToEnd({
-        animated: true,
-       
-      });
     }
-  }
+  };
+
 
   return (
     <SafeAreaView style={styles.container} >
@@ -89,6 +86,7 @@ export function Chat({ navigation }: IniciarProps) {
           ref={flatListRef}
           keyExtractor={(item, index) => `section-${index}`}
           renderItem={renderMsg}
+          onContentSizeChange={()=> flatListRef.current?.scrollToEnd()}
           ListHeaderComponent={<View style={styles.titleContainer}>
             <Text style={styles.sText}>
               {sections[sections?.length - 1]?.length > 0
@@ -193,7 +191,7 @@ const styles = StyleSheet.create({
     maxWidth: width * 0.8,
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
-    borderBottomRightRadius: 8,
+    borderBottomLeftRadius: 8,
     margin: width * 0.20 - 50
   },
   msgTxt: {
