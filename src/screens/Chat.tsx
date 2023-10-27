@@ -78,6 +78,29 @@ export function Chat({ navigation }: IniciarProps) {
     );
   }
 
+  async function getAnswerFromAPI(
+    question: string,
+    comunidade: string,
+  ): Promise<any> {
+    try {
+      const response = await fetch("http://192.168.100.175:8000/perguntar", {
+        method: "POST",
+        body: JSON.stringify({
+          question: question,
+          comunidade: comunidade,
+        }),
+        headers: {
+          "Content-type": "application/json",
+        },
+      });
+      const json = await response.json();
+      console.log(json);
+      return json;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   async function sendMessage() {
     const dateSent = new Date();
     const messageSent = msg;
@@ -96,52 +119,21 @@ export function Chat({ navigation }: IniciarProps) {
       setMsg("");
     }
 
-    const getAnswerFromAPI = async () => {
-      try {
-        const response = await fetch("http://192.168.100.175:8000/perguntar", {
-          method: "POST",
-          body: JSON.stringify({
-            question: messageSent,
-            comunidade: comunidade,
-          }),
-          headers: {
-            "Content-type": "application/json",
-          },
-        });
-        const json = await response.json();
-        console.log(json);
-        return json;
-      } catch (error) {
-        console.error(error);
-      }
+    const response = await getAnswerFromAPI(messageSent, comunidade);
+
+    const responseMessage: IMessage = {
+      id: uuid.v4() as string,
+      createdAt: dateSent, // Set the message's creation time as a Date
+      message:
+        response.sentence.trim() !== ""
+          ? response.sentence
+          : "Não foi possivel processar sua pergunta, por favor tente novamente mais tarde.",
+      status: 2,
+      from: 1,
+      to: 2,
     };
-
-    const response = await getAnswerFromAPI();
-
-    if (response.sentence.trim() !== "") {
-      const responseMessage: IMessage = {
-        id: uuid.v4() as string,
-        createdAt: dateSent, // Set the message's creation time as a Date
-        message: response.sentence,
-        status: 2,
-        from: 1,
-        to: 2,
-      };
-      setMessageList((prev) => [...prev, responseMessage]);
-      setMsg("");
-    } else {
-      const responseMessage: IMessage = {
-        id: uuid.v4() as string,
-        createdAt: dateSent, // Set the message's creation time as a Date
-        message:
-          "Não foi possivel processar sua pergunta, por favor tente novamente mais tarde.",
-        status: 2,
-        from: 1,
-        to: 2,
-      };
-      setMessageList((prev) => [...prev, responseMessage]);
-      setMsg("");
-    }
+    setMessageList((prev) => [...prev, responseMessage]);
+    setMsg("");
   }
 
   return (
