@@ -1,7 +1,8 @@
-import { Avatar, Box, FlatList, HStack, Spacer, VStack, Text } from "native-base";
+import { Avatar, Box, FlatList, HStack, Spacer, VStack, Text, View } from "native-base";
 import {  ListRenderItemInfo, TouchableNativeFeedback } from 'react-native';
 import React from "react";
 import { IComunidade } from "../../interfaces/IComunidades";
+import { FontAwesome } from '@expo/vector-icons';
 
 interface IProps {
   data?: IComunidade[];
@@ -14,19 +15,23 @@ export default function TableList({ data, handleModal }: IProps) {
   
     return (
       <Box borderBottomWidth="1" borderColor="muted.800" pl={["0.5", "4"]} pr={["1", "5"]} py="4">
-        <TouchableNativeFeedback onPress={() => handleModal(item)}>
-          <HStack space={[3, 3]} justifyContent="space-between">
-            <Avatar size="48px" source={{
+        <TouchableNativeFeedback >
+          <HStack space={[3, 3]} justifyContent="space-between" alignItems={'center'}>
+            <Avatar size="54px" source={{
               uri: item.url
             }} />
             <VStack>
-              <Text color="white" bold>
+              <Text color="white"  fontSize={'xl'} bold fontFamily={'lilita-one'}>
                 {item.nome}
               </Text>
-              <Text color="coolGray.400" padding={2} textBreakStrategy="balanced" maxWidth={"xs"}>
-                {item.descricao}
-              </Text>
+             <View flex={1} flexDirection={'row'} justifyContent={'center'} alignItems={'center'}>
+              <Text color="gray.200"  textBreakStrategy="balanced" maxWidth={"72"}>
+                  {item.descricao?.slice(0, 150)} {""} {". . ."}
+                </Text>
+                <FontAwesome name='chevron-right' size={26} color="white" style={{ paddingLeft: 8 }} onPress={() => handleModal(item)}  />
+             </View>
             </VStack>
+            
             <Spacer />
           </HStack>
         </TouchableNativeFeedback>

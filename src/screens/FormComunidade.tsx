@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import TableList from "../components/TableList";
 import { IComunidade } from "../interfaces/IComunidades";
 import { coletaAPI } from "../api/coletaAPI";
-import { AxiosError } from "axios";
 import ModalComunidade from "../components/ModalComunidade";
 
 
@@ -30,7 +29,7 @@ export default function FormComunidade() {
     }, []);
 
     return (
-        <VStack bgColor={"#030C1A"} flex={1} paddingX={4}>
+        <VStack bgColor={"#262626"} flex={1} paddingX={4}>
             <Center>
                 <TableList data={dataComunidades}  handleModal={(item) => {
                     setModalComunidadeS(true);

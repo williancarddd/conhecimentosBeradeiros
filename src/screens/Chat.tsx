@@ -180,18 +180,11 @@ export function Chat({ navigation }: IniciarProps) {
         />
       </View>
       <KeyboardAvoidingView
-        behavior="padding"
-        enabled={Platform.OS == "ios"}
-        style={styles.footer}
-      >
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            marginRight: 20,
-          }}
-        >
-          <TextInput style={styles.input} value={msg} onChangeText={setMsg} />
+        behavior='padding'
+        enabled={Platform.OS == 'ios'}
+        style={styles.footer}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 20 }}>
+          <TextInput style={styles.input} underlineColorAndroid='transparent'  value={msg} onChangeText={setMsg} multiline={true} />
           <TouchableOpacity>
             <Ionicons
               name="send"
@@ -208,9 +201,8 @@ export function Chat({ navigation }: IniciarProps) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors["deep-fir"][500],
-    borderColor: "red",
-    flex: 1,
+    backgroundColor: '#262626',
+    flex: 1, 
   },
   footer: {
     borderTopColor: "#4444447f",
@@ -227,6 +219,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 7,
     paddingHorizontal: 10,
+    backgroundColor: '#1A1717'
   },
   name: {
     color: "white",
@@ -239,16 +232,16 @@ const styles = StyleSheet.create({
     padding: 4,
   },
   content: {
-    backgroundColor: colors["deep-fir"][500],
-    flex: 1,
+    backgroundColor: '#262626',
+    flex: 1
   },
   input: {
-    height: 40,
-    borderColor: "#4444447f",
-    backgroundColor: colors["deep-fir"][400],
-    color: "#ffff",
+    height: 44,
+    borderColor: '#4444447f',
+    backgroundColor: '#525252',
+    color: '#ffff',
     borderWidth: 1,
-    borderRadius: 40,
+    borderRadius: 12,
     marginHorizontal: 20,
     marginVertical: 7,
     paddingLeft: 12,
@@ -269,20 +262,20 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   formMe: {
-    backgroundColor: colors["great-blue"][600],
+    backgroundColor: '#d9d9d9e4',
     padding: 10,
     maxWidth: width * 0.64,
-    borderTopLeftRadius: 8,
+    borderTopLeftRadius: 16,
     borderTopRightRadius: 8,
     borderBottomRightRadius: 8,
     margin: 10,
   },
   fromMe: {
-    backgroundColor: colors["great-blue"][700],
+    backgroundColor: '#D9D9D9',
     padding: 10,
     maxWidth: width * 0.8,
     borderTopLeftRadius: 8,
-    borderTopRightRadius: 8,
+    borderTopRightRadius: 16,
     borderBottomLeftRadius: 8,
     marginTop: width * 0.2 - 50,
     marginBottom: width * 0.2 - 50,

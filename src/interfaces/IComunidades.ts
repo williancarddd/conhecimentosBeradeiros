@@ -3,7 +3,7 @@ export interface IComunidade {
     nome: string;
     latitude?: number;
     longitude?: number;
-    descricao?: number
-    populacao ?: number
-    url?: string
+    descricao?: string;
+    populacao ?: number;
+    url?: string;
 };
