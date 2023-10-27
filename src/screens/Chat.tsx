@@ -155,7 +155,7 @@ export function Chat({ navigation }: IniciarProps) {
           keyExtractor={(item) => String(item.id)}
           renderItem={({ item }) => renderMsg(item)}
           scrollsToTop={false}
-          onContentSizeChange={(w, h) => {
+          onContentSizeChange={(_, h) => {
             // @ts-ignore
             try {
               sectionListRef?.current?.scrollToLocation({
