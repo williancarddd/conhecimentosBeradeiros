@@ -84,14 +84,10 @@ export function Chat({ navigation }: IniciarProps) {
   ): Promise<any> {
     try {
       const response = await iaAPI.post("/perguntar", {
-        body: JSON.stringify({
-          question: question,
-          comunidade: comunidade,
-        }),
-        headers: {
-          "Content-type": "application/json",
-        },
+        question: question,
+        comunidade: comunidade,
       });
+      console.log(response);
       const json = await response.data;
       console.log(json);
       return json;
@@ -179,11 +175,24 @@ export function Chat({ navigation }: IniciarProps) {
         />
       </View>
       <KeyboardAvoidingView
-        behavior='padding'
-        enabled={Platform.OS == 'ios'}
-        style={styles.footer}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 20 }}>
-          <TextInput style={styles.input} underlineColorAndroid='transparent'  value={msg} onChangeText={setMsg} multiline={true} />
+        behavior="padding"
+        enabled={Platform.OS == "ios"}
+        style={styles.footer}
+      >
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            marginRight: 20,
+          }}
+        >
+          <TextInput
+            style={styles.input}
+            underlineColorAndroid="transparent"
+            value={msg}
+            onChangeText={setMsg}
+            multiline={true}
+          />
           <TouchableOpacity>
             <Ionicons
               name="send"
@@ -200,8 +209,8 @@ export function Chat({ navigation }: IniciarProps) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#262626',
-    flex: 1, 
+    backgroundColor: "#262626",
+    flex: 1,
   },
   footer: {
     borderTopColor: "#4444447f",
@@ -218,7 +227,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 7,
     paddingHorizontal: 10,
-    backgroundColor: '#1A1717'
+    backgroundColor: "#1A1717",
   },
   name: {
     color: "white",
@@ -231,14 +240,14 @@ const styles = StyleSheet.create({
     padding: 4,
   },
   content: {
-    backgroundColor: '#262626',
-    flex: 1
+    backgroundColor: "#262626",
+    flex: 1,
   },
   input: {
     height: 44,
-    borderColor: '#4444447f',
-    backgroundColor: '#525252',
-    color: '#ffff',
+    borderColor: "#4444447f",
+    backgroundColor: "#525252",
+    color: "#ffff",
     borderWidth: 1,
     borderRadius: 12,
     marginHorizontal: 20,
@@ -261,7 +270,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   formMe: {
-    backgroundColor: '#d9d9d9e4',
+    backgroundColor: "#d9d9d9e4",
     padding: 10,
     maxWidth: width * 0.64,
     borderTopLeftRadius: 16,
@@ -270,7 +279,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   fromMe: {
-    backgroundColor: '#D9D9D9',
+    backgroundColor: "#D9D9D9",
     padding: 10,
     maxWidth: width * 0.8,
     borderTopLeftRadius: 8,
@@ -283,8 +292,8 @@ const styles = StyleSheet.create({
   msgTxt: {
     fontSize: 16,
     color: "white",
-    fontFamily: 'lilita-one',
-    color: 'black'
+    fontFamily: "lilita-one",
+    color: "black",
   },
   hour: {
     fontSize: 11,
