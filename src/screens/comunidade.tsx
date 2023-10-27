@@ -1,10 +1,9 @@
 import React from "react";
-import { Center, FormControl, Input, Text, View, Button, TextArea } from "native-base";
+import { Center, FormControl, Input, Text, View, Button, TextArea, IconButton } from "native-base";
 import { StackNavigationProp } from "@react-navigation/stack";
-
-interface IniciarProps {
-
-}
+import { InputBase } from "../components/InputBase";
+import { Ionicons } from '@expo/vector-icons';
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 interface Props {
     navigation: StackNavigationProp<
@@ -21,10 +20,10 @@ export function Comunidade() {
                     Informações Básicas
                 </Text>
                 <FormControl>
-                   
-                    <Input borderWidth={1} placeholder="Digite o nome da comunidade" />
+
+                    <InputBase label="Nome da Comunidade" inputMode="text" />
                     <FormControl.Label>Descrição da Comunidade</FormControl.Label>
-                    <TextArea h={16} numberOfLines={3} placeholder="Digite uma breve descrição da comunidade" autoCompleteType={''}/>
+                    <TextArea h={16} numberOfLines={3} placeholder="Digite uma breve descrição da comunidade" autoCompleteType={''} />
                 </FormControl>
             </View>
             <View w={'100%'} mt={4}>
@@ -32,15 +31,20 @@ export function Comunidade() {
                     Localização da Comunidade
                 </Text>
                 <FormControl paddingBottom={2}>
-                    <FormControl.Label>Latitude</FormControl.Label>
-                    <Input placeholder="Digite a latitude da comunidade" />
-                    <FormControl.Label>Longitude</FormControl.Label>
-                    <Input placeholder="Digite a longitude da comunidade" />
+                    <InputBase label="Latitude" inputMode="decimal" />
+                    <InputBase label="Longitude" inputMode="decimal" />
                 </FormControl>
             </View>
-            <Button size="lg" colorScheme="blue" mt={4}>
-                Criar Comunidade
-            </Button>
+            <View borderBottomWidth={1} borderBottomColor={'gray.200'} mt={2} padding={4} width={'100%'}>
+                <TouchableOpacity >
+                    <Button size="lg" backgroundColor={'dark.300'} fontSize={18} padding={4} borderRadius={32} mt={4}  >
+                        Criar Comunidade
+                    </Button>
+                </TouchableOpacity>
+            </View>
+            <View mt={2} padding={4} width={'100%'}>
+                <IconButton size={16} borderRadius={32} variant="solid" alignSelf={'flex-end'} justifyContent={'center'} alignContent={'center'} icon={<Ionicons name="add"  size={36} color="white"  />}  />
+            </View>
         </Center>
     )
 }

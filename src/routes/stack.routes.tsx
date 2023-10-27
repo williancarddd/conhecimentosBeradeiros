@@ -1,7 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Comunidade } from '../screens/comunidade';
-import FormComunidade from '../screens/AreaComunidade';
 import { View } from 'native-base';
 import { FontAwesome } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
