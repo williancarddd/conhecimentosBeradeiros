@@ -1,10 +1,13 @@
+
 import {NavigationContainer} from '@react-navigation/native'
-import DrawerRoutes from './drawer.routes'
+import BottomTabNavigatorDrawerRoutes from './bottomTabs.routes'
+import React from 'react'
+
 
 export default function Routes(){
     return (
         <NavigationContainer>
-            <DrawerRoutes />
+           <BottomTabNavigatorDrawerRoutes />
         </NavigationContainer>
     )
 }

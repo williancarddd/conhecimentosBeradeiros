@@ -1,20 +1,20 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Dimensions, SafeAreaView, StatusBar, View, Image, Text, KeyboardAvoidingView, Platform, TouchableOpacity, StyleSheet, SectionList } from 'react-native';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { TextInput, Dimensions, SafeAreaView, StatusBar, View, Image, Text, KeyboardAvoidingView, Platform, TouchableOpacity, StyleSheet, SectionList } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
-import { TextInput } from 'react-native-gesture-handler';
 const botIcon = require('../../assets/favicon.png')
 import { Ionicons } from '@expo/vector-icons';
-import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { messageListData } from '../api/fakeApi';
 import { groupBy } from 'lodash';
 import { format } from 'date-fns';
 import { pt } from 'date-fns/locale';
 import { IMessage } from '../interfaces/IMessage';
 import uuid from 'react-native-uuid'
+import { colors } from '../utils/colors';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 
 const { width } = Dimensions.get('window');
 interface IniciarProps {
-  navigation: DrawerNavigationProp<Record<string, object | undefined>, string>;
+  navigation: BottomTabNavigationProp<Record<string, object | undefined>, string>;
 }
 
 export function Chat({ navigation }: IniciarProps) {
@@ -79,6 +79,7 @@ export function Chat({ navigation }: IniciarProps) {
     }
   }
 
+ 
 
   return (
     <SafeAreaView style={styles.container} >
@@ -117,7 +118,6 @@ export function Chat({ navigation }: IniciarProps) {
       <KeyboardAvoidingView
         behavior='padding'
         enabled={Platform.OS == 'ios'}
-        keyboardVerticalOffset={100}
         style={styles.footer}>
         <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 20 }}>
           <TextInput style={styles.input}  value={msg} onChangeText={setMsg} />
@@ -132,8 +132,9 @@ export function Chat({ navigation }: IniciarProps) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#030C1A',
-    flex: 1,
+    backgroundColor: colors['deep-fir'][500],
+    borderColor: 'red',
+    flex: 1, 
   },
   footer: {
     borderTopColor: '#4444447f',
@@ -148,7 +149,6 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderBottomWidth: 1,
     paddingVertical: 7,
     paddingHorizontal: 10
   },
@@ -163,13 +163,13 @@ const styles = StyleSheet.create({
     padding: 4
   },
   content: {
-    backgroundColor: '#030C1A',
+    backgroundColor: colors['deep-fir'][500],
     flex: 1
   },
   input: {
     height: 40,
     borderColor: '#4444447f',
-    backgroundColor: '#121F33',
+    backgroundColor: colors['deep-fir'][400],
     color: '#ffff',
     borderWidth: 1,
     borderRadius: 40,
@@ -181,7 +181,6 @@ const styles = StyleSheet.create({
     padding: 2
   },
   titleContainer: {
-    backgroundColor: '#121F33',
     alignSelf: 'center',
     marginTop: 12,
     paddingVertical: 3,
@@ -194,16 +193,16 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   formMe: {
-    backgroundColor: '#1D74F5',
+    backgroundColor: colors['great-blue'][600],
     padding: 10,
-    maxWidth: width * 0.8,
+    maxWidth: width * 0.64,
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
     borderBottomRightRadius: 8,
     margin: 10
   },
   fromMe: {
-    backgroundColor: '#121F33',
+    backgroundColor: colors['great-blue'][700],
     padding: 10,
     maxWidth: width * 0.8,
     borderTopLeftRadius: 8,
@@ -211,7 +210,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 8,
     marginTop:  width * 0.20 - 50,
     marginBottom:  width * 0.20 - 50,
-    marginLeft:  width * 0.20 - 10,
+    marginLeft:  width * 0.20 + 60,
   },
   msgTxt: {
     fontSize: 16,

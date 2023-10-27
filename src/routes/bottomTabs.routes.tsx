@@ -1,70 +1,75 @@
 import React from 'react';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+
 import Iniciar from '../screens/Iniciar';
 import { Feather } from '@expo/vector-icons'
 import Chat from '../screens/Chat';
 import FormComunidade from '../screens/FormComunidade';
 import { colors } from '../utils/colors';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-const Drawer = createDrawerNavigator();
+const BottomTab = createBottomTabNavigator();
 
-export default function DrawerRoutes() {
+export default function  BottomTabNavigatorDrawerRoutes() {
   return (
-    <Drawer.Navigator
+    <BottomTab.Navigator
 
       screenOptions={{
         title: '',
-        drawerStyle: {
+        tabBarStyle: {
           backgroundColor: colors['deep-fir'][500],
         },
-        drawerLabelStyle: {
+        tabBarLabelStyle: {
           color: '#ffffff'
         },
         headerShadowVisible: false,
       }}
     >
-      <Drawer.Screen
+      <BottomTab.Screen
         name="Iniciar"
         component={Iniciar}
         options={{
-          drawerLabel: "Iniciar",
+          tabBarLabel: "Iniciar",
           headerTintColor: '#030C1A',
-          drawerIcon: ({ color, size, focused }) => {
+          tabBarIcon: ({ color, size, focused }) => {
             if (focused) return <Feather name="home" color={colors['blue-dianne']['100']} size={size} />
             else return <Feather name="home" color={"#ffffff"} size={size} />
           }
         }} />
-      <Drawer.Screen
+      <BottomTab.Screen
         name="Conhecer"
         component={Chat}
         options={{
-          drawerLabel: "Conhecer",
+          tabBarLabel: "Conhecer",
+          headerShown: false,
+          tabBarStyle: {
+            display: 'none'
+          },
           headerStyle: {
             backgroundColor: colors['deep-fir'][500],
           },
           headerTintColor: colors['alto'][500],
-         
-          drawerIcon: ({ color, size, focused }) => {
+          tabBarIcon: ({ color, size, focused }) => {
             if (focused) return <Feather name="box" color={colors['blue-dianne']['100']} size={size} />
             else return <Feather name="box" color={"#ffffff"} size={size} />
-          }
+          },
+          tabBarHideOnKeyboard: true,
         }} />
-        <Drawer.Screen
+        <BottomTab.Screen
         name="Comunidades"
         component={FormComunidade}
         options={{
-          drawerLabel: "Comunidades",
+          tabBarLabel: "Comunidades",
           headerStyle: {
             backgroundColor: colors['deep-fir'][500]
           },
           headerTintColor: '#ffff',
          
-          drawerIcon: ({ color, size, focused }) => {
+          tabBarIcon: ({ color, size, focused }) => {
             if (focused) return <Feather name="users" color={colors['blue-dianne']['100']} size={size} />
             else return <Feather name="users" color={"#ffffff"} size={size} />
           }
         }} />
         
-    </Drawer.Navigator>
+    </BottomTab.Navigator>
   )
 }
