@@ -1,23 +1,19 @@
 import React from 'react';
 
 import Iniciar from '../screens/Iniciar';
-import { FontAwesome } from '@expo/vector-icons';
+
 import { Ionicons } from '@expo/vector-icons';
 import Chat from '../screens/Chat';
-import FormComunidade from '../screens/FormComunidade';
-import { useNavigation } from '@react-navigation/native';
+
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MidButton from '../components/MidButton';
-import { View } from 'native-base';
+import { StackRoute } from './stack.routes';
 
 const BottomTab = createBottomTabNavigator();
 
 export default function BottomTabNavigatorDrawerRoutes() {
-  const navigation = useNavigation();
 
-  function onPressLeftComunidadesScreen() {
-    navigation.navigate('Iniciar')
-  }
+
 
   return (
     <BottomTab.Navigator
@@ -29,7 +25,8 @@ export default function BottomTabNavigatorDrawerRoutes() {
         },
         tabBarShowLabel: false,
         headerShadowVisible: false,
-        headerTintColor: 'transparent'
+        headerTintColor: 'transparent',
+        headerShown: false
       }}
 
       initialRouteName='Iniciar'
@@ -55,8 +52,6 @@ export default function BottomTabNavigatorDrawerRoutes() {
         component={Iniciar}
         options={{
           tabBarLabel: "Iniciar",
-          headerTintColor: '#030C1A',
-
           tabBarIcon: ({ color, size, focused }) => {
             if (focused) return <MidButton color="black" size={size} />
             else return <MidButton color="white" size={size} />
@@ -64,29 +59,9 @@ export default function BottomTabNavigatorDrawerRoutes() {
         }} />
       <BottomTab.Screen
         name="Comunidades"
-        component={FormComunidade}
+        component={StackRoute}
         options={{
           tabBarLabel: "Comunidades",
-          headerStyle: {
-            backgroundColor: '#1A1717',
-          },
-          headerTitle: 'Comunidades',
-          headerTitleStyle: {
-            color: 'white',
-            fontSize: 34,
-            fontWeight: "900",
-            justifyContent: 'center',
-            alignItems: 'center'
-          }
-          ,
-          headerLeft: () => {
-            return (
-              <View flex={1} justifyContent={'center'} justifyItems={'center'} flexDirection={'row'}>
-                <FontAwesome name='chevron-left' size={26} color="white" style={{ paddingLeft: 22 }} onPress={onPressLeftComunidadesScreen} />
-                <Ionicons name="md-people" size={36} color="white" style={{ paddingLeft: 16 }} />
-              </View>
-            )
-          },
           tabBarIcon: ({ color, size, focused }) => {
             if (focused) return <Ionicons name="md-people" size={26} color="gray" />
             else return <Ionicons name="md-people" size={26} color="black" />

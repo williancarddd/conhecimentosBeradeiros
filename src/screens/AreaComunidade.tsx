@@ -4,10 +4,18 @@ import TableList from "../components/TableList";
 import { IComunidade } from "../interfaces/IComunidades";
 import { coletaAPI } from "../api/coletaAPI";
 import ModalComunidade from "../components/ModalComunidade";
+import { StackNavigationProp } from "@react-navigation/stack";
+
+interface IniciarProps {
+    navigation: StackNavigationProp<
+      Record<string, object | undefined>,
+      string
+    >;
+  }
+  
 
 
-
-export default function FormComunidade() {
+export default function AreaComunidade({navigation}: IniciarProps) {
 
     const [dataComunidades, setDataComunidades] = useState<IComunidade[]>([]);
     const [modalComunidadeS, setModalComunidadeS] = useState<boolean>(false);
@@ -32,11 +40,11 @@ export default function FormComunidade() {
         <VStack bgColor={"#262626"} flex={1} paddingX={4}>
             <Center>
                 <TableList data={dataComunidades}  handleModal={(item) => {
-                    setModalComunidadeS(true);
+                    navigation.navigate('Comunidade')
                     setComunidadeSelected(item);
                 }}/>
             </Center>
-            <ModalComunidade setShowModal={setModalComunidadeS} showModal={modalComunidadeS}/>
+            <ModalComunidade setShowModal={setModalComunidadeS} showModal={modalComunidadeS} />
         </VStack>
     )
 }

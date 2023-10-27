@@ -22,8 +22,8 @@ import { format } from "date-fns";
 import { pt } from "date-fns/locale";
 import { IMessage } from "../interfaces/IMessage";
 import uuid from "react-native-uuid";
-import { colors } from "../utils/colors";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+import { iaAPI } from "../api/ia/ia";
 
 const { width } = Dimensions.get("window");
 interface IniciarProps {
@@ -83,8 +83,7 @@ export function Chat({ navigation }: IniciarProps) {
     comunidade: string,
   ): Promise<any> {
     try {
-      const response = await fetch("http://192.168.100.175:8000/perguntar", {
-        method: "POST",
+      const response = await iaAPI.post("/perguntar", {
         body: JSON.stringify({
           question: question,
           comunidade: comunidade,
@@ -93,7 +92,7 @@ export function Chat({ navigation }: IniciarProps) {
           "Content-type": "application/json",
         },
       });
-      const json = await response.json();
+      const json = await response.data;
       console.log(json);
       return json;
     } catch (error) {
@@ -284,6 +283,8 @@ const styles = StyleSheet.create({
   msgTxt: {
     fontSize: 16,
     color: "white",
+    fontFamily: 'lilita-one',
+    color: 'black'
   },
   hour: {
     fontSize: 11,
