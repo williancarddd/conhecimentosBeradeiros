@@ -9,7 +9,15 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import MidButton from "../components/MidButton";
 import { StackRoute } from "./stack.routes";
 
-const BottomTab = createBottomTabNavigator();
+
+type RootBottomTabParamList = {
+  Iniciar: undefined;
+  Conhecer: undefined;
+  Comunidades: undefined
+}
+
+
+const BottomTab = createBottomTabNavigator<RootBottomTabParamList>();
 
 export default function BottomTabNavigatorDrawerRoutes() {
   return (
