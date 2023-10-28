@@ -1,21 +1,21 @@
 import { IMessage } from "../interfaces/IMessage";
-import * as tf from "@tensorflow/tfjs";
 
 export const messageListData: IMessage[] = [
   {
     id: "a",
     from: 1,
     to: 2,
-    createdAt: new Date("2021-04-23"),
-    message: "Olá",
+    createdAt: new Date(),
+    message: "Oi!!, meu nome é Roberinho(Robô Ribeirinho)",
     status: 2, // 0 enviado, 1 recebido e 2 lido
   },
   {
     id: "b",
-    from: 2,
-    to: 1,
-    createdAt: new Date("2021-04-25"),
-    message: "Olá cara",
+    from: 1,
+    to: 2,
+    createdAt: new Date(),
+    message:
+      "Vou te dar algums dicas de como você pode me usar de maneira mais eficaz",
     status: 2, // 0 enviado, 1 recebido e 2 lido
   },
   {
@@ -23,23 +23,17 @@ export const messageListData: IMessage[] = [
     from: 1,
     to: 2,
     createdAt: new Date(),
-    message: "Tudo bem ?",
+    message:
+      "Tente utilizar uma das categorias para podermos selecionar as melhores respostas",
     status: 2, // 0 enviado, 1 recebido e 2 lido
   },
   {
     id: "d",
-    from: 2,
-    to: 1,
-    createdAt: new Date(),
-    message: "Sim.",
-    status: 2, // 0 enviado, 1 recebido e 2 lido
-  },
-  {
-    id: "e",
     from: 1,
     to: 2,
     createdAt: new Date(),
-    message: "Que bom",
+    message:
+      "Sempre que quiser você pode entrar na aba Comunidade e nos ajudar a coletar informações",
     status: 2, // 0 enviado, 1 recebido e 2 lido
   },
 ];
