@@ -162,9 +162,9 @@ export function Chat({ navigation }: IniciarProps) {
             // @ts-ignore
             try {
               sectionListRef?.current?.scrollToLocation({
-                itemIndex: messageList?.length,
+                itemIndex: messageList?.length, // é minha ultima mensagem enviada
                 sectionIndex: sections[sections?.length]?.length,
-                viewOffset: -h,
+                viewOffset: h == 0 ? 1 : -h,
               });
             } catch {
               console.error("error ao scrollar");
