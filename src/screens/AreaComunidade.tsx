@@ -4,15 +4,20 @@ import TableList from "../components/TableListComunidades";
 import { IComunidade } from "../interfaces/IComunidades";
 import { coletaAPI } from "../api/coletaAPI";
 import ModalComunidade from "../components/ModalComunidade";
-import { StackNavigationProp } from "@react-navigation/stack";
-import type { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useIsFocused } from "@react-navigation/native";
+
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { useNavigation } from "@react-navigation/native";
 import { RootStackParamsList } from "../routes/stack.routes";
+import useHandleComunidade from "../hooks/HandleComunidade";
 
 type Props = NativeStackNavigationProp<RootStackParamsList, 'ComunidadeDetails'>;
 
 export default function AreaComunidade() {
+  const isFocused = useIsFocused();
+
+  const { editComunidade } = useHandleComunidade();
   const { navigate } = useNavigation<Props>();
   const [dataComunidades, setDataComunidades] = useState<IComunidade[]>([]);
   const [modalComunidadeS, setModalComunidadeS] = useState<boolean>(false);
@@ -27,15 +32,23 @@ export default function AreaComunidade() {
     }
   }
   useEffect(() => {
-    populateComunidade();
-  }, []);
+    console.log("de novo")
+    if (isFocused) {
+      populateComunidade();
+    }
+    
+  }, [isFocused]);
 
 
   return (
     <VStack bgColor={"#262626"} flex={1} paddingX={4}>
       <Center>
         <TableList data={dataComunidades} handleModal={(item) => {
-          navigate('ComunidadeDetails', item);
+          navigate('ComunidadeDetails', {
+            data: item,
+            trigger: editComunidade,
+            mode: 'edit'
+          });
         }} />
       </Center>
       <ModalComunidade setShowModal={setModalComunidadeS} showModal={modalComunidadeS} />

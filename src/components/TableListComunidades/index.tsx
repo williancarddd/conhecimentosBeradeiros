@@ -52,8 +52,9 @@ export default function TableList({ data, handleModal }: IProps) {
               <View
                 flex={1}
                 flexDirection={"row"}
-                justifyContent={"center"}
+                justifyContent={"space-between"}
                 alignItems={"center"}
+                
               >
                 <Text
                   color="gray.200"

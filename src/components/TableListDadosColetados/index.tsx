@@ -8,6 +8,7 @@ import { format } from "date-fns";
 import Separator from "../Separator";
 import { useRoute } from "@react-navigation/native";
 import { IComunidade } from "../../interfaces/IComunidades";
+import { IDataHandler } from "../../interfaces/IDataHandle";
 
 interface IProps {
   handleModal: (item: CommunityData) => void
@@ -17,11 +18,12 @@ interface IProps {
 
 
 export default function TableListDadosColetados({ handleModal, Header }: IProps) {
-  const comunidade: Readonly<IComunidade | undefined> = useRoute()?.params;
+  const comunidade = useRoute()?.params as unknown as Readonly<IDataHandler<IComunidade> | undefined> ;
+
   const [historyDataColetado, setHistoryDataColetado] = useState<CommunityData[]>()
   async function populateComunidadeHistory() {
     try {
-      const resp_get_comunidade = await coletaAPI.get<CommunityData[]>(`/textos-coletados/${comunidade?.id}`);
+      const resp_get_comunidade = await coletaAPI.get<CommunityData[]>(`/textos-coletados/${comunidade?.data.id}`);
 
       setHistoryDataColetado(resp_get_comunidade.data);
     } catch (error) {

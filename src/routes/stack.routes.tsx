@@ -7,23 +7,29 @@ import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import AreaComunidade from '../screens/AreaComunidade';
 import { IComunidade } from '../interfaces/IComunidades';
+import { IDataHandler } from '../interfaces/IDataHandle';
+import useHandleComunidade from '../hooks/HandleComunidade';
 
 export type RootStackParamsList = {
   AreaComunidade: undefined
-  ComunidadeDetails?: IComunidade
+  ComunidadeDetails: IDataHandler<IComunidade>
 }
 
 const Stack = createStackNavigator();
 
 export function StackRoute() {
 	const navigation = useNavigation();
+	const {createComunidade} = useHandleComunidade();
 	function onPressLeftComunidadesScreen() {
 		//@ts-ignore
 		navigation.navigate('Iniciar')
 	}
 	function onPressRigthPlusComunidadesScreen() {
 		//@ts-ignore
-		navigation.navigate('ComunidadeDetails', {})
+		navigation.navigate('ComunidadeDetails', {
+			trigger: createComunidade,
+			mode: 'create'
+		})
 	}
 	return (
 		<Stack.Navigator screenOptions={{
