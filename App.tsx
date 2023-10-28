@@ -8,6 +8,7 @@ import * as Font from "expo-font";
 export default function App() {
   const [fontsLoaded] = Font.useFonts({
     "lilita-one": require("./assets/fonts/lilita-one.ttf"),
+    Oswald: require("./assets/fonts/Oswald-VariableFont_wght.ttf"),
   });
   if (!fontsLoaded) return <></>;
   return (

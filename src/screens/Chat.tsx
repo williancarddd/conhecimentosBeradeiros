@@ -26,6 +26,7 @@ import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { iaAPI } from "../api/ia/ia";
 
 const { width } = Dimensions.get("window");
+
 interface IniciarProps {
   navigation: BottomTabNavigationProp<
     Record<string, object | undefined>,
@@ -69,9 +70,11 @@ export function Chat({ navigation }: IniciarProps) {
     const messageTime = format(item.createdAt, "HH:mm", { locale: pt });
 
     return (
-      <View style={isFromUser ? styles.formMe : styles.fromMe}>
-        <Text style={styles.msgTxt}>{item.message}</Text>
-        <View>
+      <View
+        style={[isFromUser ? styles.forMeContainer : styles.fromMeContainer]}
+      >
+        <View style={[isFromUser ? styles.forMe : styles.fromMe]}>
+          <Text style={styles.msgTxt}>{item.message} </Text>
           <Text style={styles.hour}>{messageTime}</Text>
         </View>
       </View>
@@ -144,7 +147,6 @@ export function Chat({ navigation }: IniciarProps) {
         <Image source={botIcon} style={styles.avatar} />
         <View>
           <Text style={styles.name}> Roberinho </Text>
-          <Text style={styles.status}>Digitando... </Text>
         </View>
       </View>
 
@@ -217,8 +219,8 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
   },
   avatar: {
-    height: 32,
-    width: 32,
+    height: 48,
+    width: 48,
     borderRadius: 22,
     marginHorizontal: 15,
   },
@@ -238,10 +240,6 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 13,
     padding: 4,
-  },
-  content: {
-    backgroundColor: "#262626",
-    flex: 1,
   },
   input: {
     height: 44,
@@ -269,36 +267,54 @@ const styles = StyleSheet.create({
     color: "white",
     textAlign: "center",
   },
-  formMe: {
+  content: {
+    flex: 1,
+    backgroundColor: "#262626",
+    marginRight: width * 0.03,
+    marginLeft: width * 0.03,
+  },
+  forMeContainer: {
+    flex: 1,
+    alignItems: "flex-start",
+  },
+  forMe: {
     backgroundColor: "#d9d9d9e4",
-    padding: 10,
+    paddingTop: 10,
+    paddingLeft: 10,
     maxWidth: width * 0.64,
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 8,
-    borderBottomRightRadius: 8,
-    margin: 10,
+    borderTopLeftRadius: 4,
+    borderTopRightRadius: 16,
+    borderBottomRightRadius: 16,
+    borderBottomLeftRadius: 16,
+    marginBottom: width * 0.1,
+  },
+  fromMeContainer: {
+    flex: 1,
+    alignItems: "flex-end",
   },
   fromMe: {
     backgroundColor: "#D9D9D9",
-    padding: 10,
-    maxWidth: width * 0.8,
-    borderTopLeftRadius: 8,
-    borderTopRightRadius: 16,
-    borderBottomLeftRadius: 8,
-    marginTop: width * 0.2 - 50,
-    marginBottom: width * 0.2 - 50,
-    marginLeft: width * 0.2 + 60,
+    paddingTop: 10,
+    paddingLeft: 10,
+    maxWidth: width * 0.64,
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 4,
+    borderBottomLeftRadius: 16,
+    borderBottomRightRadius: 16,
+    marginBottom: width * 0.1,
   },
   msgTxt: {
     fontSize: 16,
-    color: "white",
-    fontFamily: "lilita-one",
+    fontFamily: "Oswald",
+    fontWeight: "normal",
     color: "black",
+    marginRight: 40,
   },
   hour: {
     fontSize: 11,
-    color: "#ffffff9e",
+    color: "#5e5e5e",
     textAlign: "right",
+    paddingRight: 13,
   },
 });
 export default Chat;
