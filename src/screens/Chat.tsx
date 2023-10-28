@@ -117,21 +117,22 @@ export function Chat({ navigation }: IniciarProps) {
       setMsg("");
     }
 
-    const response = await getAnswerFromAPI(messageSent, comunidade);
+    if (messageSent.trim() !== "") {
+      const response = await getAnswerFromAPI(messageSent, comunidade);
 
-    const responseMessage: IMessage = {
-      id: uuid.v4() as string,
-      createdAt: dateSent, // Set the message's creation time as a Date
-      message:
-        response.sentence.trim() !== ""
-          ? response.sentence
-          : "Não foi possivel processar sua pergunta, por favor tente novamente mais tarde.",
-      status: 2,
-      from: 1,
-      to: 2,
-    };
-    setMessageList((prev) => [...prev, responseMessage]);
-    setMsg("");
+      const responseMessage: IMessage = {
+        id: uuid.v4() as string,
+        createdAt: dateSent, // Set the message's creation time as a Date
+        message:
+          response.sentence,
+        status: 2,
+        from: 1,
+        to: 2,
+      };
+      setMessageList((prev) => [...prev, responseMessage]);
+      setMsg("");
+    }
+
   }
 
   return (
