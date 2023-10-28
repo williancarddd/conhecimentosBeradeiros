@@ -115,16 +115,13 @@ export function Chat({ navigation }: IniciarProps) {
       };
       setMessageList((prev) => [...prev, formatMessage]);
       setMsg("");
-    }
 
-    if (messageSent.trim() !== "") {
       const response = await getAnswerFromAPI(messageSent, comunidade);
 
       const responseMessage: IMessage = {
         id: uuid.v4() as string,
         createdAt: dateSent, // Set the message's creation time as a Date
-        message:
-          response.sentence,
+        message: response.sentence,
         status: 2,
         from: 1,
         to: 2,
@@ -132,19 +129,26 @@ export function Chat({ navigation }: IniciarProps) {
       setMessageList((prev) => [...prev, responseMessage]);
       setMsg("");
     }
-
   }
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" />
       <View style={styles.header}>
-        <FontAwesome
-          name="chevron-left"
-          size={24}
-          color="white"
+        <TouchableOpacity
           onPress={backScreen}
-        />
+          hitSlop={{ top: 25, bottom: 25, left: 15, right: 15 }}
+        >
+          <FontAwesome
+            name="chevron-left"
+            size={24}
+            color="#ffff"
+            style={{
+              padding: 10,
+              paddingHorizontal: 25,
+            }}
+          ></FontAwesome>
+        </TouchableOpacity>
         <Image source={botIcon} style={styles.avatar} />
         <View>
           <Text style={styles.name}> Roberinho </Text>
@@ -161,7 +165,7 @@ export function Chat({ navigation }: IniciarProps) {
           onContentSizeChange={(_, h) => {
             // @ts-ignore
             try {
-              sectionListRef?.current?.scrollToLocation({
+              sectionListRef?.current?.scrollIntoView({
                 itemIndex: messageList?.length, // é minha ultima mensagem enviada
                 sectionIndex: sections[sections?.length]?.length,
                 viewOffset: h == 0 ? 1 : -h,
@@ -186,7 +190,6 @@ export function Chat({ navigation }: IniciarProps) {
           style={{
             flexDirection: "row",
             alignItems: "center",
-            marginRight: 20,
           }}
         >
           <TextInput
@@ -196,13 +199,16 @@ export function Chat({ navigation }: IniciarProps) {
             onChangeText={setMsg}
             multiline={true}
           />
-          <TouchableOpacity>
-            <Ionicons
-              name="send"
-              size={26}
-              color="#ffff"
-              onPress={sendMessage}
-            />
+          <TouchableOpacity
+            onPress={sendMessage}
+            hitSlop={{ top: 25, bottom: 25, left: 15, right: 15 }}
+            style={{
+              padding: 10,
+              paddingHorizontal: 25,
+              backgroundColor: "#262626",
+            }}
+          >
+            <Ionicons name="send" size={38} color="#ffff" />
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
@@ -223,13 +229,12 @@ const styles = StyleSheet.create({
     height: 48,
     width: 48,
     borderRadius: 22,
-    marginHorizontal: 15,
+    marginRight: 15,
   },
   header: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 7,
-    paddingHorizontal: 10,
+    paddingVertical: 8,
     backgroundColor: "#1A1717",
   },
   name: {
@@ -249,7 +254,7 @@ const styles = StyleSheet.create({
     color: "#ffff",
     borderWidth: 1,
     borderRadius: 12,
-    marginHorizontal: 20,
+    marginLeft: 10,
     marginVertical: 7,
     paddingLeft: 12,
     flex: 1,
