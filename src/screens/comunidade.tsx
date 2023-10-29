@@ -5,10 +5,10 @@ import { FormBasicComunidade } from "../components/FormBasicComunidade";
 
 export function Comunidade() {
   return (
-    <Center w={"100%"}>
-      <TableListDadosColetados
-        Header={<FormBasicComunidade />}
-        handleModal={() => { }}
+    <Center >
+      <TableListDadosColetados 
+      Header={<FormBasicComunidade />}
+      handleModal={() => {}}
       />
     </Center>
   );

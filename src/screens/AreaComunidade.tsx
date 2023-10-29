@@ -3,22 +3,18 @@ import React, { useEffect, useState } from "react";
 import TableList from "../components/TableListComunidades";
 import { IComunidade } from "../interfaces/IComunidades";
 import { coletaAPI } from "../api/coletaAPI";
-import ModalComunidade from "../components/ModalComunidade";
+import ModalComunidade from "../components/FormBasicColetaDados";
 import { useIsFocused } from "@react-navigation/native";
-
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-
 import { useNavigation } from "@react-navigation/native";
-import { RootStackParamsList } from "../routes/stack.routes";
 import useHandleComunidade from "../hooks/HandleComunidade";
+import { StackType } from "../interfaces/TStack";
 
-type Props = NativeStackNavigationProp<RootStackParamsList, 'ComunidadeDetails'>;
 
 export default function AreaComunidade() {
   const isFocused = useIsFocused();
 
   const { editComunidade } = useHandleComunidade();
-  const { navigate } = useNavigation<Props>();
+  const { navigate } = useNavigation<StackType>();
   const [dataComunidades, setDataComunidades] = useState<IComunidade[]>([]);
   const [modalComunidadeS, setModalComunidadeS] = useState<boolean>(false);
 

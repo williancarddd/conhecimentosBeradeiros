@@ -18,7 +18,7 @@ interface IProps {
 
 
 export default function TableListDadosColetados({ handleModal, Header }: IProps) {
-  const comunidade = useRoute()?.params as unknown as Readonly<IDataHandler<IComunidade> | undefined> ;
+  const comunidade = useRoute()?.params as unknown as Readonly<IDataHandler<IComunidade> | undefined>;
 
   const [historyDataColetado, setHistoryDataColetado] = useState<CommunityData[]>()
   async function populateComunidadeHistory() {
@@ -62,17 +62,16 @@ export default function TableListDadosColetados({ handleModal, Header }: IProps)
     )
   }
   return (
-    <Box>
-      
-      <FlatList
-        data={historyDataColetado}
-        renderItem={renderITem}
-        keyExtractor={item => String(item.id)}
-        ItemSeparatorComponent={Separator}
-        ListHeaderComponent={Header}
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-      />
-    </Box>
+
+    <FlatList
+      data={historyDataColetado}
+      renderItem={renderITem}
+      keyExtractor={item => String(item.id)}
+      ItemSeparatorComponent={Separator}
+      ListHeaderComponent={Header}
+      showsVerticalScrollIndicator={false}
+      showsHorizontalScrollIndicator={false}
+    />
+
   );
 };

@@ -6,9 +6,8 @@ import {
   Spacer,
   VStack,
   Text,
-  View,
 } from "native-base";
-import { ListRenderItemInfo, TouchableNativeFeedback } from "react-native";
+import { ListRenderItemInfo, TouchableOpacity } from "react-native";
 import React from "react";
 import { IComunidade } from "../../interfaces/IComunidades";
 import { FontAwesome } from "@expo/vector-icons";
@@ -28,7 +27,7 @@ export default function TableList({ data, handleModal }: IProps) {
         pr={["1", "5"]}
         py="4"
       >
-        <TouchableNativeFeedback>
+        <TouchableOpacity onPress={() => handleModal(item)}>
           <HStack
             space={[3, 3]}
             justifyContent="space-between"
@@ -41,6 +40,7 @@ export default function TableList({ data, handleModal }: IProps) {
               }}
             />
             <VStack>
+
               <Text
                 color="white"
                 fontSize={"xl"}
@@ -49,33 +49,23 @@ export default function TableList({ data, handleModal }: IProps) {
               >
                 {item.nome}
               </Text>
-              <View
-                flex={1}
-                flexDirection={"row"}
-                justifyContent={"space-between"}
-                alignItems={"center"}
-                
+
+
+
+              <Text
+                color="gray.200"
+                textBreakStrategy="balanced"
+                maxWidth={"72"}
               >
-                <Text
-                  color="gray.200"
-                  textBreakStrategy="balanced"
-                  maxWidth={"72"}
-                >
-                  {item.descricao?.slice(0, 150)} {""} {". . ."}
-                </Text>
-                <FontAwesome
-                  name="chevron-right"
-                  size={26}
-                  color="white"
-                  style={{ paddingLeft: 8 }}
-                  onPress={() => handleModal(item)}
-                />
-              </View>
+                {item.descricao?.slice(0, 150)} {""} {". . ."}
+              </Text>
+
+
             </VStack>
 
             <Spacer />
           </HStack>
-        </TouchableNativeFeedback>
+        </TouchableOpacity>
       </Box>
     );
   }
