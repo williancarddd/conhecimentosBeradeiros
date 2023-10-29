@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "ConhecimentoBeradeiro",
+    "name": "Beradeiros",
     "slug": "ConhecimentoBeradeiro",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -17,12 +17,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/boat.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.riccardoalv.ConhecimentoBeradeiro"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "6ad3bfb1-a46d-40db-a9cb-b5c4e5f5d10b"
+      }
     }
   }
 }
