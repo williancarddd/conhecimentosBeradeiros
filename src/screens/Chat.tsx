@@ -99,35 +99,38 @@ export function Chat({ navigation }: IniciarProps) {
     }
   }
 
-  async function sendMessage() {
+  function writeMessage(message: string, from: number) {
     const dateSent = new Date();
+    const formatMessage: IMessage = {
+      id: uuid.v4() as string,
+      createdAt: dateSent,
+      message: message,
+      status: 2,
+      from: from,
+      to: from == 1 ? 2 : 1,
+    };
+    setMessageList((prev) => [...prev, formatMessage]);
+    setMsg("");
+  }
+
+  async function sendMessage() {
     const messageSent = msg;
     const comunidade = "Comunidade de Nazaré";
+    const minLength = 6;
 
     if (messageSent.trim() !== "") {
-      const formatMessage: IMessage = {
-        id: uuid.v4() as string,
-        createdAt: dateSent, // Set the message's creation time as a Date
-        message: messageSent,
-        status: 1,
-        from: 2,
-        to: 1,
-      };
-      setMessageList((prev) => [...prev, formatMessage]);
-      setMsg("");
+      writeMessage(messageSent, 2);
 
-      const response = await getAnswerFromAPI(messageSent, comunidade);
+      if (messageSent.length < minLength) {
+        writeMessage("Sua pergunta é muito curta", 1);
+      } else {
+        if (messageSent.toLowerCase().includes("bom dia")) {
+          writeMessage("Bom dia", 1);
+        }
+        const response = await getAnswerFromAPI(messageSent, comunidade);
 
-      const responseMessage: IMessage = {
-        id: uuid.v4() as string,
-        createdAt: dateSent, // Set the message's creation time as a Date
-        message: response.sentence,
-        status: 2,
-        from: 1,
-        to: 2,
-      };
-      setMessageList((prev) => [...prev, responseMessage]);
-      setMsg("");
+        writeMessage(response.sentence, 1);
+      }
     }
   }
 
@@ -162,17 +165,16 @@ export function Chat({ navigation }: IniciarProps) {
           keyExtractor={(item) => String(item.id)}
           renderItem={({ item }) => renderMsg(item)}
           scrollsToTop={false}
+          onScrollToIndexFailed={() => {
+            console.log("asdf");
+          }}
           onContentSizeChange={(_, h) => {
             // @ts-ignore
-            try {
-              sectionListRef?.current?.scrollIntoView({
-                itemIndex: messageList?.length, // é minha ultima mensagem enviada
-                sectionIndex: sections[sections?.length]?.length,
-                viewOffset: h == 0 ? 1 : -h,
-              });
-            } catch {
-              console.error("error ao scrollar");
-            }
+            sectionListRef.current?.scrollToLocation({
+              itemIndex: messageList?.length, // é minha ultima mensagem enviada
+              sectionIndex: sections[sections?.length]?.length,
+              viewOffset: h == 0 ? 1 : -h,
+            });
           }}
           renderSectionHeader={({ section: { title } }) => (
             <View style={styles.titleContainer}>
@@ -204,7 +206,7 @@ export function Chat({ navigation }: IniciarProps) {
             hitSlop={{ top: 25, bottom: 25, left: 15, right: 15 }}
             style={{
               padding: 10,
-              paddingHorizontal: 25,
+              paddingHorizontal: 15,
               backgroundColor: "#262626",
             }}
           >
@@ -272,6 +274,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: "white",
     textAlign: "center",
+    marginBottom: 20,
   },
   content: {
     flex: 1,
@@ -292,7 +295,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 16,
     borderBottomRightRadius: 16,
     borderBottomLeftRadius: 16,
-    marginBottom: width * 0.1,
+    marginBottom: width * 0.03,
   },
   fromMeContainer: {
     flex: 1,
