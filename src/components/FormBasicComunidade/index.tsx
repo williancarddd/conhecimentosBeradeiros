@@ -11,6 +11,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup';
 import { IDataHandler } from "../../interfaces/IDataHandle";
 import { StackType } from "../../interfaces/TStack";
+import MultiSelectExample from "../MultiSelectBase";
+import { FormAssuntoComunidade } from "../FormAssuntoComunidade";
+import MultiSelectBase from "../MultiSelectBase";
 
 const validationSchema = yup.object<IComunidade>({
   nome: yup.string().required('Informe o nome da comunidade.'),
@@ -23,6 +26,7 @@ const validationSchema = yup.object<IComunidade>({
 
 export function FormBasicComunidade() {
   const [isLoading, setIsLoading] = useState(false);
+  const [modalAssunto, setModalAssunto] = useState(false);
   const toast = useToast();
   const { navigate } = useNavigation<StackType>()
   const comunidade = useRoute()?.params as unknown as Readonly<IDataHandler<IComunidade> | undefined>;
@@ -53,11 +57,12 @@ export function FormBasicComunidade() {
         title: "Feito !",
         placement: "bottom"
       })
-    } catch (e) { 
+    } catch (e) {
       toast.show({
-      title: "Ops !",
-      placement: "bottom"
-    })}
+        title: "Ops !",
+        placement: "bottom"
+      })
+    }
     setIsLoading(false)
   };
   async function handleChangeScreenDataColetaDetais() {
@@ -140,11 +145,12 @@ export function FormBasicComunidade() {
                   />
                 )}
               />
+
             </FormControl>
 
           </View>
         </KeyboardAvoidingView>
-        <View borderBottomWidth={1} borderBottomColor={'gray.200'} mt={2}>
+        <View borderBottomWidth={1} borderBottomColor={'gray.200'} mt={2} mb={24}>
 
           <Button
             size="lg"
@@ -161,7 +167,24 @@ export function FormBasicComunidade() {
                 comunidade?.mode !== 'edit' ? 'Adicionar comunidade' : 'Atualizar comunidade'
             }
           </Button>
-
+          {
+            comunidade?.data?.id ?
+              (
+                <>
+                  <Button
+                    size="lg"
+                    backgroundColor={'dark.300'}
+                    onPress={() => { setModalAssunto(!modalAssunto) }}
+                    fontSize={18}
+                    padding={4}
+                    borderRadius={32}
+                    mt={4}>
+                    Assuntos
+                  </Button>
+                  <FormAssuntoComunidade setShowModal={setModalAssunto} showModal={modalAssunto} dynamicContent={<MultiSelectBase />} />
+                </>
+              ) : null
+          }
         </View>
         {
           comunidade?.mode !== 'edit' ? null : (

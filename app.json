@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Beradeiros",
-    "slug": "ConhecimentoBeradeiro",
+    "slug": "conhecimento-beradeiro",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,7 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -27,8 +29,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "6ad3bfb1-a46d-40db-a9cb-b5c4e5f5d10b"
+        "projectId": "437e2891-67ec-459b-9988-6200c994c1db"
       }
-    }
+    },
+    "owner": "williamcardoso21024"
   }
 }
