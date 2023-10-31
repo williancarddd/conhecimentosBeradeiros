@@ -6,7 +6,9 @@ mkShell {
 
   # Add executable packages to the nix-shell environment.
   packages = with pkgs; [
+    gcc
     android-tools
+    android-studio
     nodejs_20
     nodePackages.yarn
     nodePackages.npm
