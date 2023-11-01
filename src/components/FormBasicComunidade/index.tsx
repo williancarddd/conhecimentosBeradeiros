@@ -1,14 +1,23 @@
 import React, { useState } from "react";
-import { FormControl, View, Button, ScrollView, Text, IconButton, Box, useToast } from "native-base";
-import { Ionicons } from '@expo/vector-icons';
+import {
+  FormControl,
+  View,
+  Button,
+  ScrollView,
+  Text,
+  IconButton,
+  Box,
+  useToast,
+} from "native-base";
+import { Ionicons } from "@expo/vector-icons";
 import { IComunidade } from "../../interfaces/IComunidades";
 import { InputBase } from "../InputBase";
 import { ActivityIndicator, KeyboardAvoidingView } from "react-native";
 import { TextAreaBase } from "../TextAreaBase";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useForm, Controller } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup';
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import { IDataHandler } from "../../interfaces/IDataHandle";
 import { StackType } from "../../interfaces/TStack";
 import MultiSelectExample from "../MultiSelectBase";
@@ -16,83 +25,85 @@ import { FormAssuntoComunidade } from "../FormAssuntoComunidade";
 import MultiSelectBase from "../MultiSelectBase";
 
 const validationSchema = yup.object<IComunidade>({
-  nome: yup.string().required('Informe o nome da comunidade.'),
-  descricao: yup.string()
-    .required('Descrição breve da comunidade.')
-    .max(200, 'No máximo 200 caracteres.'),
-
+  nome: yup.string().required("Informe o nome da comunidade."),
+  descricao: yup
+    .string()
+    .required("Descrição breve da comunidade.")
+    .max(200, "No máximo 200 caracteres."),
 });
-
 
 export function FormBasicComunidade() {
   const [isLoading, setIsLoading] = useState(false);
   const [modalAssunto, setModalAssunto] = useState(false);
   const toast = useToast();
-  const { navigate } = useNavigation<StackType>()
-  const comunidade = useRoute()?.params as unknown as Readonly<IDataHandler<IComunidade> | undefined>;
-  console.log(comunidade?.data)
-  const { control, handleSubmit,
-    formState: {
-      errors,
-      defaultValues,
-    }, getValues } = useForm<IComunidade>({
-      resolver: yupResolver(validationSchema),
-      defaultValues: comunidade?.data ?? {
-        descricao: '',
-        latitude: '',
-        longitude: '',
-        populacao: 0,
-        nome: undefined,
-        id: undefined
-      },
-    });
+  const { navigate } = useNavigation<StackType>();
+  const comunidade = useRoute()?.params as unknown as Readonly<
+    IDataHandler<IComunidade> | undefined
+  >;
+  console.log(comunidade?.data);
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, defaultValues },
+    getValues,
+  } = useForm<IComunidade>({
+    resolver: yupResolver(validationSchema),
+    defaultValues: comunidade?.data ?? {
+      descricao: "",
+      latitude: "",
+      longitude: "",
+      populacao: 0,
+      nome: undefined,
+      id: undefined,
+    },
+  });
   async function handleRegisterComunidade(data: IComunidade) {
     setIsLoading(true);
     try {
       await comunidade?.trigger({
         ...data,
         populacao: Number(data?.populacao),
-      })
+      });
       toast.show({
         title: "Feito !",
-        placement: "bottom"
-      })
+        placement: "bottom",
+      });
     } catch (e) {
       toast.show({
         title: "Ops !",
-        placement: "bottom"
-      })
+        placement: "bottom",
+      });
     }
-    setIsLoading(false)
-  };
+    setIsLoading(false);
+  }
   async function handleChangeScreenDataColetaDetais() {
     const data = getValues();
-    navigate('ColetaDadosDetails');
-  };
+    navigate("ColetaDadosDetails");
+  }
   return (
-    <Box width={'96'}>
-      <ScrollView >
-        <View >
+    <Box width={"96"}>
+      <ScrollView>
+        <View>
           <FormControl>
-
             <Controller
               control={control}
-              name='nome'
+              name="nome"
               render={({ field: { onChange } }) => (
                 <InputBase
                   error={errors.nome?.message}
                   label="Nome da Comunidade"
                   onChangeText={onChange}
                   defaultValue={defaultValues?.nome}
-                  inputMode="text" />
+                  inputMode="text"
+                />
               )}
             />
             <Controller
               control={control}
-              name='descricao'
+              name="descricao"
               render={({ field: { onChange } }) => (
                 <TextAreaBase
-                  h={'32'}
+                  h={"32"}
                   numberOfLines={5}
                   onChangeText={onChange}
                   defaultValue={defaultValues?.descricao}
@@ -109,7 +120,7 @@ export function FormBasicComunidade() {
             <FormControl paddingBottom={2}>
               <Controller
                 control={control}
-                name='latitude'
+                name="latitude"
                 render={({ field: { onChange } }) => (
                   <InputBase
                     label="Latitude"
@@ -117,95 +128,107 @@ export function FormBasicComunidade() {
                     error={errors.latitude?.message}
                     onChangeText={onChange}
                     textContentType="location"
-                    inputMode="decimal" />
+                    inputMode="decimal"
+                  />
                 )}
               />
               <Controller
                 control={control}
-                name='longitude'
+                name="longitude"
                 render={({ field: { onChange } }) => (
                   <InputBase
                     label="longitude"
                     defaultValue={defaultValues?.longitude}
                     error={errors.longitude?.message}
                     onChangeText={onChange}
-                    inputMode="decimal" />
+                    inputMode="decimal"
+                  />
                 )}
               />
               <Controller
                 control={control}
-                name='populacao'
+                name="populacao"
                 render={({ field: { onChange } }) => (
                   <InputBase
                     label="População"
-                    defaultValue={String(defaultValues?.populacao) === undefined ? '' : String(defaultValues?.populacao)}
+                    defaultValue={
+                      String(defaultValues?.populacao) === undefined
+                        ? ""
+                        : String(defaultValues?.populacao)
+                    }
                     error={errors.populacao?.message}
                     onChangeText={onChange}
                     inputMode="numeric"
                   />
                 )}
               />
-
             </FormControl>
-
           </View>
         </KeyboardAvoidingView>
-        <View borderBottomWidth={1} borderBottomColor={'gray.200'} mt={2} mb={24}>
-
+        <View
+          borderBottomWidth={1}
+          borderBottomColor={"gray.200"}
+          mt={2}
+          mb={24}
+        >
           <Button
             size="lg"
-            backgroundColor={'dark.300'}
+            backgroundColor={"dark.300"}
             onPress={handleSubmit(handleRegisterComunidade)}
             fontSize={18}
             padding={4}
             borderRadius={32}
-            mt={4}>
-            {
-              isLoading ?
-                <ActivityIndicator size="large" color="#f0f00bd3" />
-                :
-                comunidade?.mode !== 'edit' ? 'Adicionar comunidade' : 'Atualizar comunidade'
-            }
+            mt={4}
+          >
+            {isLoading ? (
+              <ActivityIndicator size="large" color="#f0f00bd3" />
+            ) : comunidade?.mode !== "edit" ? (
+              "Adicionar comunidade"
+            ) : (
+              "Atualizar comunidade"
+            )}
           </Button>
-          {
-            comunidade?.data?.id ?
-              (
-                <>
-                  <Button
-                    size="lg"
-                    backgroundColor={'dark.300'}
-                    onPress={() => { setModalAssunto(!modalAssunto) }}
-                    fontSize={18}
-                    padding={4}
-                    borderRadius={32}
-                    mt={4}>
-                    Assuntos
-                  </Button>
-                  <FormAssuntoComunidade setShowModal={setModalAssunto} showModal={modalAssunto} dynamicContent={<MultiSelectBase />} />
-                </>
-              ) : null
-          }
-        </View>
-        {
-          comunidade?.mode !== 'edit' ? null : (
-            <View mt={2} >
-              <Text fontSize={'2xl'} fontFamily={'lilita-one'} bold  >
-                Coleta da  {comunidade?.data?.nome}
-              </Text>
-              <IconButton
-                size={16}
+          {comunidade?.data?.id ? (
+            <>
+              <Button
+                size="lg"
+                backgroundColor={"dark.300"}
+                onPress={() => {
+                  setModalAssunto(!modalAssunto);
+                }}
+                fontSize={18}
+                padding={4}
                 borderRadius={32}
-                variant="solid"
-                alignSelf={'flex-end'}
-                justifyContent={'center'}
-                alignContent={'center'}
-                icon={<Ionicons name="add" size={36} color="white" />}
-                onPress={handleChangeScreenDataColetaDetais}
+                mt={4}
+              >
+                Assuntos
+              </Button>
+              <FormAssuntoComunidade
+                setShowModal={setModalAssunto}
+                showModal={modalAssunto}
+                dynamicContent={<MultiSelectBase />}
               />
-            </View>
-          )
-        }
+            </>
+          ) : null}
+        </View>
+        {comunidade?.mode !== "edit" ? null : (
+          <View mt={2}>
+            <Text fontSize={"2xl"} fontFamily={"lilita-one"} bold>
+              Coleta da {comunidade?.data?.nome}
+            </Text>
+            <IconButton
+              size={16}
+              borderRadius={32}
+              variant="solid"
+              alignSelf={"flex-end"}
+              justifyContent={"center"}
+              alignContent={"center"}
+              icon={<Ionicons name="add" size={36} color="white" />}
+              onPress={handleChangeScreenDataColetaDetais}
+            />
+          </View>
+        )}
       </ScrollView>
-    </Box >
+    </Box>
   );
-};
+}

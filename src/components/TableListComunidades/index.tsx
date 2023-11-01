@@ -40,7 +40,6 @@ export default function TableList({ data, handleModal }: IProps) {
               }}
             />
             <VStack>
-
               <Text
                 color="white"
                 fontSize={"xl"}
@@ -50,8 +49,6 @@ export default function TableList({ data, handleModal }: IProps) {
                 {item.nome}
               </Text>
 
-
-
               <Text
                 color="gray.200"
                 textBreakStrategy="balanced"
@@ -59,8 +56,6 @@ export default function TableList({ data, handleModal }: IProps) {
               >
                 {item.descricao?.slice(0, 150)} {""} {". . ."}
               </Text>
-
-
             </VStack>
 
             <Spacer />

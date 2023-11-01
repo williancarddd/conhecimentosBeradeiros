@@ -5,4 +5,4 @@ export interface CommunityData {
   fonteId: number;
   data_coletado: string;
   categoriaId: number;
-};
+}

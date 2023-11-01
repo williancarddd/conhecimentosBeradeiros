@@ -5,11 +5,11 @@ import Routes from "./src/routes";
 import { StatusBar } from "react-native";
 import { NativeBaseProvider } from "native-base";
 import * as Font from "expo-font";
-import { SSRProvider } from '@react-aria/ssr';
-import { LogBox } from 'react-native';
+import { SSRProvider } from "@react-aria/ssr";
+import { LogBox } from "react-native";
 
 LogBox.ignoreLogs([
-  'Non-serializable values were found in the navigation state',
+  "Non-serializable values were found in the navigation state",
 ]);
 
 export default function App() {
@@ -19,7 +19,7 @@ export default function App() {
   });
   if (!fontsLoaded) return <></>;
   return (
-    <SSRProvider >
+    <SSRProvider>
       <NativeBaseProvider>
         <StatusBar backgroundColor="#030C1A" barStyle="light-content" />
         <Routes />

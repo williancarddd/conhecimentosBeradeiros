@@ -9,7 +9,6 @@ import { useNavigation } from "@react-navigation/native";
 import useHandleComunidade from "../hooks/HandleComunidade";
 import { StackType } from "../interfaces/TStack";
 
-
 export default function AreaComunidade() {
   const isFocused = useIsFocused();
 
@@ -20,7 +19,8 @@ export default function AreaComunidade() {
 
   async function populateComunidade() {
     try {
-      const resp_get_comunidade = await coletaAPI.get<IComunidade[]>("/comunidades");
+      const resp_get_comunidade =
+        await coletaAPI.get<IComunidade[]>("/comunidades");
 
       setDataComunidades(resp_get_comunidade.data);
     } catch (error) {
@@ -28,26 +28,30 @@ export default function AreaComunidade() {
     }
   }
   useEffect(() => {
-    console.log("de novo")
+    console.log("de novo");
     if (isFocused) {
       populateComunidade();
     }
-    
   }, [isFocused]);
-
 
   return (
     <VStack bgColor={"#262626"} flex={1} paddingX={4}>
       <Center>
-        <TableList data={dataComunidades} handleModal={(item) => {
-          navigate('ComunidadeDetails', {
-            data: item,
-            trigger: editComunidade,
-            mode: 'edit'
-          });
-        }} />
+        <TableList
+          data={dataComunidades}
+          handleModal={(item) => {
+            navigate("ComunidadeDetails", {
+              data: item,
+              trigger: editComunidade,
+              mode: "edit",
+            });
+          }}
+        />
       </Center>
-      <ModalComunidade setShowModal={setModalComunidadeS} showModal={modalComunidadeS} />
+      <ModalComunidade
+        setShowModal={setModalComunidadeS}
+        showModal={modalComunidadeS}
+      />
     </VStack>
-  )
+  );
 }

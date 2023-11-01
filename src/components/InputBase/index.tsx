@@ -23,8 +23,16 @@ export function InputBase({ value, label, error, ...rest }: InputProps) {
   }
 
   return (
-    < >
-      <Text fontSize={16} fontFamily={'lilita-one'} fontWeight={'medium'}  mt={2}> {label ? label : ''}</Text>
+    <>
+      <Text
+        fontSize={16}
+        fontFamily={"lilita-one"}
+        fontWeight={"medium"}
+        mt={2}
+      >
+        {" "}
+        {label ? label : ""}
+      </Text>
 
       <Input
         onFocus={handleInputFocus}

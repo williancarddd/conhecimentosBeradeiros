@@ -1,5 +1,5 @@
 export interface ICategoria {
-  id: number
-  descricao: string
-  comuidadeId: number
+  id: number;
+  descricao: string;
+  comuidadeId: number;
 }
