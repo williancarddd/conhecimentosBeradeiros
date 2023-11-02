@@ -41,7 +41,8 @@ export function FormBasicComunidade() {
   const comunidade = useRoute()?.params as unknown as Readonly<
     IDataHandler<IComunidade> | undefined
   >;
-  console.log(comunidade?.data);
+  // __AUTO_GENERATED_PRINT_VAR_START__
+  console.log("FormBasicComunidade comunidade?.data: %s", comunidade?.data); // __AUTO_GENERATED_PRINT_VAR_END__
   const {
     control,
     handleSubmit,

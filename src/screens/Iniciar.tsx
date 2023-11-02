@@ -22,7 +22,8 @@ export default function Iniciar({ navigation }: IniciarProps) {
   const [password, setPassword] = useState("");
   const onHandleLogin = () => {
     if (email === "" && password === "") {
-      console.log("logado");
+      // __AUTO_GENERATED_PRINTF_START__
+      console.log("Iniciar#onHandleLogin#if logado"); // __AUTO_GENERATED_PRINTF_END__
       navigation.navigate("Conhecer");
     } else {
       Alert.alert("Erro ao logar");

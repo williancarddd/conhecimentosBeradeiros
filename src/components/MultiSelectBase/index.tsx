@@ -15,7 +15,8 @@ export default function MultiSelectBase() {
   function handleGetDataItems() {
     try {
       const data = coletaAPI.get<ICategoria[]>("/categorias");
-      console.log(data)
+      // __AUTO_GENERATED_PRINT_VAR_START__
+      console.log("MultiSelectBase#handleGetDataItems data: %s", data); // __AUTO_GENERATED_PRINT_VAR_END__
     } catch (err) { }
   }
 

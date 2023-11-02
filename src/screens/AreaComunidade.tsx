@@ -24,11 +24,13 @@ export default function AreaComunidade() {
 
       setDataComunidades(resp_get_comunidade.data);
     } catch (error) {
-      console.log(error);
+      // __AUTO_GENERATED_PRINT_VAR_START__
+      console.log("AreaComunidade#populateComunidade error: %s", error); // __AUTO_GENERATED_PRINT_VAR_END__
     }
   }
   useEffect(() => {
-    console.log("de novo");
+    // __AUTO_GENERATED_PRINT_VAR_START__
+    console.log("AreaComunidade#(anon) useEffect: de novo"); // __AUTO_GENERATED_PRINT_VAR_END__
     if (isFocused) {
       populateComunidade();
     }

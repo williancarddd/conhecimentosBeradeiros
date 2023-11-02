@@ -33,7 +33,8 @@ export default function TableListDadosColetados({
 
       setHistoryDataColetado(resp_get_comunidade.data);
     } catch (error) {
-      console.log(error);
+      // __AUTO_GENERATED_PRINT_VAR_START__
+      console.log("TableListDadosColetados#populateComunidadeHistory error: %s", error); // __AUTO_GENERATED_PRINT_VAR_END__
     }
   }
 

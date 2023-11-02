@@ -90,12 +90,15 @@ export function Chat({ navigation }: IniciarProps) {
         question: question,
         comunidade: comunidade,
       });
-      console.log(response);
+      // __AUTO_GENERATED_PRINT_VAR_START__
+      console.log("Chat#getAnswerFromAPI response: %s", response); // __AUTO_GENERATED_PRINT_VAR_END__
       const json = await response.data;
-      console.log(json);
+      // __AUTO_GENERATED_PRINT_VAR_START__
+      console.log("Chat#getAnswerFromAPI json: %s", json); // __AUTO_GENERATED_PRINT_VAR_END__
       return json;
     } catch (error) {
-      console.error(error);
+      // __AUTO_GENERATED_PRINT_VAR_START__
+      console.log("Chat#getAnswerFromAPI error: %s", error); // __AUTO_GENERATED_PRINT_VAR_END__
     }
   }
 
@@ -166,7 +169,8 @@ export function Chat({ navigation }: IniciarProps) {
           renderItem={({ item }) => renderMsg(item)}
           scrollsToTop={false}
           onScrollToIndexFailed={() => {
-            console.log("asdf");
+            // __AUTO_GENERATED_PRINT_VAR_START__
+            console.log("Chat#(anon) onScrollToIndexFailed: scroll failed"); // __AUTO_GENERATED_PRINT_VAR_END__
           }}
           onContentSizeChange={(_, h) => {
             // @ts-ignore
