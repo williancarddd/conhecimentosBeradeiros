@@ -20,19 +20,14 @@ export default function FormBasicColetaDados() {
   const [fontes, setFontes] = useState(defaultValue)
   const [categorias, setCategorias] = useState(defaultValue)
 
-  const toast = useToast()
+  const [fonteSelected, setFonteSelected] = useState("")
+  const [categoriaSelected, setCategoriaSelected] = useState("")
 
-  const [selected, setSelected] = useState([]);
+  const toast = useToast()
 
   const textos = useRoute()?.params as unknown as Readonly<
     IDataHandler<CommunityData> | undefined
   >;
-
-  const validationSchema = yup.object<CommunityData>({
-    descricao: yup.string().required("Informe a descrição do texto."),
-    nome: yup.string().required("Informe o nome da fonte."),
-    url: yup.string().url().required("Informe a URL da fonte."),
-  });
 
   const {
     control,
@@ -42,23 +37,17 @@ export default function FormBasicColetaDados() {
 
   async function handleRegisterTexto(data: CommunityData) {
     setIsLoading(true);
-    console.log(data)
-    try {
-      await textos?.trigger({
-        ...data,
-        comunidadeId: 2,
-      });
-      toast.show({
-        title: "Feito !",
-        placement: "bottom",
-      });
-    } catch (e) {
-      toast.show({
-        title: "Ops !",
-        placement: "bottom",
-      });
-    }
+    const comunidadeNazare = 1;
+    const response = await coletaAPI.post("/textos-coletados", {
+      descricao: data.descricao,
+      comunidadeId: comunidadeNazare,
+      fonteId: Number(fonteSelected),
+    });
+    const json = await response.data;
+    // __AUTO_GENERATED_PRINT_VAR_START__
+    console.log("FormBasicColetaDados#handleRegisterTexto json: %s", json); // __AUTO_GENERATED_PRINT_VAR_END__
     setIsLoading(false);
+    return json;
   }
 
   async function getFontesInformacao() {
@@ -103,29 +92,21 @@ export default function FormBasicColetaDados() {
           )}
         />
         <MultipleSelectList
-          setSelected={(val) => setSelected(val)}
+          setSelected={(val) => setFonteSelected(val)}
           data={fontes}
           searchPlaceholder="Buscar"
           placeholder="Selecionar Fonte de Informação"
           fontFamily="lilita-one"
-          save="value"
-          onSelect={() => {
-            alert(selected)
-            setFontes(defaultValue)
-          }}
+          save="key"
           label="Selecionados"
         />
         <MultipleSelectList
-          setSelected={(val) => setSelected(val)}
+          setSelected={(val) => setCategoriaSelected(val)}
           data={categorias}
           searchPlaceholder="Buscar"
           placeholder="Selecionar Assuntos"
           fontFamily="lilita-one"
-          save="value"
-          onSelect={() => {
-            alert(selected)
-            setCategorias(defaultValue)
-          }}
+          save="key"
           label="Selecionados"
         />
         <Button
