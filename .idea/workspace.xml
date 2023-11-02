@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e8534fce-7ff9-4233-860f-ce071c697e8d" name="Changes" comment="" />
+    <list default="true" id="e8534fce-7ff9-4233-860f-ce071c697e8d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flake.nix" beforeDir="false" afterPath="$PROJECT_DIR$/flake.nix" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/coletaAPI/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/coletaAPI/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FormBasicColetaDados/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FormBasicColetaDados/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FormBasicComunidade/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FormBasicComunidade/index.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

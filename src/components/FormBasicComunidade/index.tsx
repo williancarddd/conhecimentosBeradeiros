@@ -35,6 +35,7 @@ const validationSchema = yup.object<IComunidade>({
 export function FormBasicComunidade() {
   const [isLoading, setIsLoading] = useState(false);
   const [modalAssunto, setModalAssunto] = useState(false);
+  const [modalFonte, setModalFonte] = useState(false);
   const toast = useToast();
   const { navigate } = useNavigation<StackType>();
   const comunidade = useRoute()?.params as unknown as Readonly<
@@ -194,6 +195,19 @@ export function FormBasicComunidade() {
                 size="lg"
                 backgroundColor={"dark.300"}
                 onPress={() => {
+                  setModalFonte(!modalFonte);
+                }}
+                fontSize={18}
+                padding={4}
+                borderRadius={32}
+                mt={4}
+              >
+                Adicionar Fontes de Informação
+              </Button>
+              <Button
+                size="lg"
+                backgroundColor={"dark.300"}
+                onPress={() => {
                   setModalAssunto(!modalAssunto);
                 }}
                 fontSize={18}
@@ -206,6 +220,11 @@ export function FormBasicComunidade() {
               <FormAssuntoComunidade
                 setShowModal={setModalAssunto}
                 showModal={modalAssunto}
+                dynamicContent={<MultiSelectBase />}
+              />
+              <FormAssuntoComunidade
+                setShowModal={setModalFonte}
+                showModal={modalFonte}
                 dynamicContent={<MultiSelectBase />}
               />
             </>
