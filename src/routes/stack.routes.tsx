@@ -8,6 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 import AreaComunidade from "../screens/AreaComunidade";
 import useHandleComunidade from "../hooks/HandleComunidade";
 import FormBasicColetaDados from "../components/FormBasicColetaDados";
+import { TouchableOpacity } from "react-native";
 
 const Stack = createStackNavigator();
 
@@ -46,10 +47,12 @@ export function StackRoute() {
           headerTitle: "Comunidades",
           headerTitleStyle: {
             color: "white",
-            fontSize: 34,
+            fontSize: 32,
             fontWeight: "900",
             justifyContent: "center",
             alignItems: "center",
+            paddingBottom: 10,
+            paddingTop: 5,
           },
           headerLeft: () => {
             return (
@@ -59,18 +62,25 @@ export function StackRoute() {
                 justifyItems={"center"}
                 flexDirection={"row"}
               >
-                <FontAwesome
-                  name="chevron-left"
-                  size={26}
-                  color="white"
-                  style={{ paddingLeft: 22 }}
+                <TouchableOpacity
                   onPress={onPressLeftComunidadesScreen}
-                />
+                  hitSlop={{ top: 25, bottom: 25, left: 15, right: 15 }}
+                >
+                  <FontAwesome
+                    name="chevron-left"
+                    size={24}
+                    color="#ffff"
+                    style={{
+                      padding: 15,
+                      paddingHorizontal: 25,
+                    }}
+                  ></FontAwesome>
+                </TouchableOpacity>
                 <Ionicons
                   name="md-people"
-                  size={36}
+                  size={32}
                   color="white"
-                  style={{ paddingLeft: 16 }}
+                  style={{ paddingVertical: 10 }}
                 />
               </View>
             );
@@ -83,13 +93,18 @@ export function StackRoute() {
                 justifyItems={"center"}
                 flexDirection={"row"}
               >
-                <FontAwesome
-                  name="plus"
-                  size={26}
-                  color="white"
-                  style={{ paddingRight: 36, marginTop: 8 }}
-                  onPress={onPressRigthPlusComunidadesScreen}
-                />
+                <TouchableOpacity
+                  onPress={onPressLeftComunidadesScreen}
+                  hitSlop={{ top: 25, bottom: 25, left: 15, right: 15 }}
+                >
+                  <FontAwesome
+                    name="plus"
+                    size={24}
+                    color="white"
+                    style={{ paddingTop: 18, paddingRight: 35 }}
+                    onPress={onPressRigthPlusComunidadesScreen}
+                  />
+                </TouchableOpacity>
               </View>
             );
           },

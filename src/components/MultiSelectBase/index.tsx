@@ -11,22 +11,22 @@ interface Props {
 export default function MultiSelectBase() {
   const [selected, setSelected] = React.useState([]);
 
-  function handleFormatData() {}
+  function handleFormatData() { }
   function handleGetDataItems() {
     try {
       const data = coletaAPI.get<ICategoria[]>("/categorias");
-    } catch (err) {}
+      console.log(data)
+    } catch (err) { }
   }
 
   const data = [
-    { key: "1", value: "Mobiles", disabled: true },
-    { key: "2", value: "Appliances" },
-    { key: "3", value: "Cameras" },
-    { key: "4", value: "Computers", disabled: true },
-    { key: "5", value: "Vegetables" },
-    { key: "6", value: "Diary Products" },
-    { key: "7", value: "Drinks" },
+    { key: "1", value: "Geral" },
+    { key: "2", value: "Saúde" },
+    { key: "3", value: "Economia" },
+    { key: "4", value: "Religião" },
   ];
+
+  handleGetDataItems()
 
   return (
     <>

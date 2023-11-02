@@ -25,11 +25,5 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "extra": {
-      "eas": {
-        "projectId": "437e2891-67ec-459b-9988-6200c994c1db"
-      }
-    },
-    "owner": "williamcardoso21024"
   }
 }

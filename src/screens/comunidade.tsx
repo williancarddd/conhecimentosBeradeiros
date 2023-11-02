@@ -8,7 +8,7 @@ export function Comunidade() {
     <Center>
       <TableListDadosColetados
         Header={<FormBasicComunidade />}
-        handleModal={() => {}}
+        handleModal={() => { }}
       />
     </Center>
   );
