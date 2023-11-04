@@ -1,13 +1,13 @@
 import { Box, Button, Center, FormControl, useToast } from "native-base";
-import React, { useState } from "react";
 
+import React, { useEffect, useState } from "react";
 import { InputBase } from "../InputBase";
 import { Controller, useForm } from "react-hook-form";
 import { TextAreaBase } from "../TextAreaBase";
 import { ActivityIndicator } from "react-native";
 import { CommunityData } from "../../interfaces/IDadosColetados";
 import { IDataHandler } from "../../interfaces/IDataHandle";
-import { useRoute } from "@react-navigation/native";
+import { useIsFocused, useRoute } from "@react-navigation/native";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { MultipleSelectList } from "react-native-dropdown-select-list";
@@ -15,6 +15,8 @@ import { coletaAPI } from "../../api/coletaAPI";
 
 export default function FormBasicColetaDados() {
   const [isLoading, setIsLoading] = useState(false)
+
+  const isFocused = useIsFocused();
 
   const defaultValue = { "key": 1, "value": "Napra" }
   const [fontes, setFontes] = useState(defaultValue)
@@ -51,27 +53,32 @@ export default function FormBasicColetaDados() {
   }
 
   async function getFontesInformacao() {
-    if (fontes == defaultValue) {
-      const response = await coletaAPI.get('/fontes-informacao')
-      const json = response.data.map(item => { return { "key": item.id, "value": item.nome } })
-      // __AUTO_GENERATED_PRINT_VAR_START__
-      console.log("FormBasicColetaDados#getFontesInformacao#if json: %s", json); // __AUTO_GENERATED_PRINT_VAR_END__
-      setFontes(json)
-    }
+    const response = await coletaAPI.get('/fontes-informacao')
+    const json = response.data.map(item => { return { "key": item.id, "value": item.nome } })
+    // __AUTO_GENERATED_PRINT_VAR_START__
+    console.log("FormBasicColetaDados#getFontesInformacao#if json: %s", json); // __AUTO_GENERATED_PRINT_VAR_END__
+    setFontes(json)
   }
 
   async function getCategorias() {
-    if (categorias == defaultValue) {
-      const response = await coletaAPI.get('/categorias')
-      const json = response.data.map(item => { return { "key": item.id, "value": item.descricao } })
-      // __AUTO_GENERATED_PRINT_VAR_START__
-      console.log("FormBasicColetaDados#getCategorias#if json: %s", json); // __AUTO_GENERATED_PRINT_VAR_END__
-      setCategorias(json)
-    }
+    const response = await coletaAPI.get('/categorias')
+    const json = response.data.map(item => { return { "key": item.id, "value": item.descricao } })
+    // __AUTO_GENERATED_PRINT_VAR_START__
+    console.log("FormBasicColetaDados#getCategorias#if json: %s", json); // __AUTO_GENERATED_PRINT_VAR_END__
+    setCategorias(json)
   }
 
-  getFontesInformacao()
-  getCategorias()
+  useEffect(() => {
+    if (isFocused) {
+      getFontesInformacao()
+    }
+  }, [isFocused])
+
+  useEffect(() => {
+    if (isFocused) {
+      getCategorias()
+    }
+  }, [isFocused])
 
   return (
     <Box w={"100%"} padding={4}>
