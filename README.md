@@ -9,9 +9,9 @@
   </a>
 </p>
 
-<video width="320" height="340" controls>
-  <source src="readme.mp4" type="video/mp4">
-</video>
+[![Watch the video](boat.png)]([readme.mp4](https://youtube.com/shorts/x1zQehzsajE?feature=share))
+
+
 
 > Usando como base teórica a Comunidade de Nazaré, localizada em Rondônia, a aplicação visa reduzir o gap de conhecimento a respeito da cultura local, bem como enfatizar conteúdos culturais que normalmente são negligenciados pela mídia, isso por meio de uma forma interativa de fazer perguntas para uma inteligência artificial, também é possível adicionar novas comunidades ao aplicativo, onde ele aprende sozinho, a partir dos seus dados coletados.
 
